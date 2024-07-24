@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue/dist/vue.esm-bundler.js'
+import { defineComponent, computed } from 'vue/dist/vue.esm-bundler.js'
 import { getWeatherData, WeatherConditionIcons } from './weather.service.ts'
 
 export default defineComponent({
@@ -25,10 +25,11 @@ export default defineComponent({
       <h1 class="title">Погода в Средиземье</h1>
 
       <ul class="weather-list unstyled-list">
+      <!-- Переопределил добавления класса через объект, а не через тернарный оператор-->
         <li v-for="weatherData in weatherDataList"
-          class="weather-card"
-          :class ="weatherData.current.dt > weatherData.current.sunrise &&
-          weatherData.current.dt < weatherData.current.sunset ? '' : 'weather-card--night'">
+          class="weather-card" 
+          :class="{'weather-card--night': !(weatherData.current.dt > weatherData.current.sunrise && weatherData.current.dt < weatherData.current.sunset)}"
+          >
           <div  v-if="weatherData.alert" class="weather-alert">
             <span class="weather-alert__icon">⚠️</span>
             <span class="weather-alert__description">Королевская метеослужба короля Арагорна II: Предвещается наступление сильного шторма.</span>

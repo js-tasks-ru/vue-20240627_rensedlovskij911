@@ -4,10 +4,14 @@ export default defineComponent({
   name: 'CalculatorApp',
 
   setup() {
+    // Определил начальное состояние калькулятора
+    // в виде двух переменных и оператора
     const first_value = ref(0)
     const second_value = ref(0)
     const operator = ref('sum')
 
+    // Тут логика работа калькулятора,
+    // значение answer зависит от выбранного оператора
     const answer = computed(() => {
       if (operator.value === 'sum') {
         return first_value.value + second_value.value
@@ -31,8 +35,9 @@ export default defineComponent({
   template: `
     <div class="calculator">
       <input type="number" aria-label="First operand" v-model="first_value"/>
-
+      
       <div class="calculator__operators">
+        <!-- Здесь выставил начальное значение при помощи привязки checked -->
         <label><input type="radio" name="operator" :checked = "operator === 'sum'" value="sum" v-model="operator" />➕</label>
         <label><input type="radio" name="operator" value="subtract" v-model="operator"/>➖</label>
         <label><input type="radio" name="operator" value="multiply" v-model="operator"/>✖</label>

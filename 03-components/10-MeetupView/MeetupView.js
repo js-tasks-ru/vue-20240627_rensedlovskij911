@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, defineProps } from 'vue/dist/vue.esm-bundler.js'
 import { UiAlert, UiContainer } from '@shgk/vue-course-ui'
 import MeetupAgenda from './MeetupAgenda.js'
 import MeetupDescription from './MeetupDescription.js'
@@ -9,33 +9,44 @@ import './MeetupView.css'
 export default defineComponent({
   name: 'MeetupView',
 
+  // Регистрация пропса meetup
+  props: {
+    meetup: {
+      type: Object,
+    },
+  },
+  // регистрация новых компонентов
   components: {
     UiAlert,
     UiContainer,
+    MeetupCover,
+    MeetupInfo,
+    MeetupDescription,
+    MeetupAgenda,
   },
 
   template: `
     <div>
-
-      <!-- Обложка митапа -->
-
+      <MeetupCover :image="meetup.image" :title="meetup.title"/>
+      
       <UiContainer>
         <div class="meetup">
           <div class="meetup__content">
             <h2>Описание</h2>
 
-            <!-- Описание митапа -->
-
+            <MeetupDescription :description="meetup.description"/>
+            <!-- Либо программа выводится через v-if/v-else, либо сообщение -->
             <h2>Программа</h2>
-
+            <MeetupAgenda v-if="meetup.agenda.length" :agenda="meetup.agenda"/>
             <!-- Программа митапа -->
             <!-- Или при пустой программе - сообщение "Программа пока пуста..." в UiAlert -->
-            <UiAlert></UiAlert>
+            <UiAlert v-else>Программа пока пуста…</UiAlert>
 
           </div>
           <div class="meetup__aside">
 
             <!-- Краткая информация о митапе -->
+            <MeetupInfo :organizer="meetup.organizer" :place="meetup.place" :date="meetup.date"/>
 
             <div class="meetup__aside-buttons"></div>
           </div>

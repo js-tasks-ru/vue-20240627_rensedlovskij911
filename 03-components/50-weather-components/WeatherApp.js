@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue/dist/vue.esm-bundler.js'
 import { getWeatherData } from './weather.service.ts'
-import WeatherCardList from './components/WeatherCardList.js'
+import WeatherCardList from './WeatherCardList.js'
 import './WeatherApp.css'
 
 export default defineComponent({

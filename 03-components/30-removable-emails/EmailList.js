@@ -14,6 +14,8 @@ export default defineComponent({
       required: true,
     },
   },
+  // Не понимаю, зачем определять emits, если и без этого работает
+  // emits: ['removeEmail'],
 
   template: `
     <ul class="emails-list unstyled-list" aria-label="Emails">
@@ -22,6 +24,8 @@ export default defineComponent({
         :key="email"
         :email="email"
         :marked="isMarked"
+        :index="index"
+        @remove-email="$emit('removeEmail', index)"
       />
     </ul>
   `,

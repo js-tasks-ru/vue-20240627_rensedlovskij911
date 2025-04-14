@@ -11,18 +11,22 @@ export default defineComponent({
     const info = ref(null)
 
     // Реакция на смену ID митапа, получает данные для митапа
-    watch(meetupIdValue, async () => {
-      info.value = (await getMeetup(+meetupIdValue.value)).title
-    })
+    watch(
+      meetupIdValue,
+      async () => {
+        info.value = (await getMeetup(+meetupIdValue.value)).title
+      },
+      { immediate: true },
+    )
 
     // При открытии приложения вывожу информацию о первом митапе
-    onMounted(async () => {
-      try {
-        info.value = (await getMeetup(+meetupIdValue.value)).title
-      } catch (error) {
-        console.log(error)
-      }
-    })
+    // onMounted(async () => {
+    //   try {
+    //     info.value = (await getMeetup(+meetupIdValue.value)).title
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // })
 
     //  Логика работы кнопок
     function nextMeetup() {
